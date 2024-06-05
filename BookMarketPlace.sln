@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B7800395-7CEC-48C1-97EE-209C4FC51D77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{ABA70668-F61A-411B-93D1-4025E4375830}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.Services.CatalogApi", "Services\Catalog\BookMarketPlace.Services.CatalogApi\BookMarketPlace.Services.CatalogApi.csproj", "{387BE7FF-760E-462F-A1F9-6D46855B087C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B6F27338-0DAA-4490-B34C-B5969F4EE162}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Core", "BookMarketPlace.Core\BookMarketPlace.Core.csproj", "{2D83BEEC-6D29-4265-A109-20AF444A559A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{387BE7FF-760E-462F-A1F9-6D46855B087C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387BE7FF-760E-462F-A1F9-6D46855B087C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387BE7FF-760E-462F-A1F9-6D46855B087C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387BE7FF-760E-462F-A1F9-6D46855B087C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D83BEEC-6D29-4265-A109-20AF444A559A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D83BEEC-6D29-4265-A109-20AF444A559A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D83BEEC-6D29-4265-A109-20AF444A559A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D83BEEC-6D29-4265-A109-20AF444A559A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABA70668-F61A-411B-93D1-4025E4375830} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
+		{387BE7FF-760E-462F-A1F9-6D46855B087C} = {ABA70668-F61A-411B-93D1-4025E4375830}
+		{2D83BEEC-6D29-4265-A109-20AF444A559A} = {B6F27338-0DAA-4490-B34C-B5969F4EE162}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {053A6F4F-3A6C-4918-ACB8-E8BE6ABB48C1}
+	EndGlobalSection
+EndGlobal
