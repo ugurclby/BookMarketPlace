@@ -13,8 +13,11 @@ namespace BookMarketPlace.Services.CatalogApi.Mapping
             CreateMap<Book, BookUpdateDto>().ReverseMap();
 
             CreateMap<Author, AuthorDto>().ReverseMap();
+            CreateMap<Author, AuthorCreateDto>().ReverseMap();
+            CreateMap<Author, AuthorUpdateDto>().ReverseMap();
 
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CategoryCreateDto>().ReverseMap(); 
         }
     }
 }

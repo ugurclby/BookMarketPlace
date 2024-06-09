@@ -6,8 +6,10 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 {
     public interface ICategoryService
     {
-        Task<Response<List<CategoryDto>>> GetAll();
-        Task<Response<CategoryDto>> GetById(string Id);
-        Task<Response<CategoryDto>> CreateAsync(Category category);
+        Task<ICustomResponse<List<CategoryDto>>> GetAllAsync();
+        Task<ICustomResponse<CategoryDto>> GetByIdAsync(string Id);
+        Task<ICustomResponse<CategoryDto>> CreateAsync(CategoryCreateDto category);
+        Task<ICustomResponse<string>> UpdateAsync(CategoryDto category);
+        Task<ICustomResponse<string>> DeleteAsync(string id);
     }
 }

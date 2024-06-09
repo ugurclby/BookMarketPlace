@@ -23,7 +23,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
             _categoryCollection = database.GetCollection<Category>(dbSettings.CategoryCollectionName);
             _authorCollection = database.GetCollection<Author>(dbSettings.AuthorCollectionName);
         }
-        public async Task<Response<List<BookDto>>> GetAllAsync()
+        public async Task<ICustomResponse<List<BookDto>>> GetAllAsync()
         {
             var books = await _bookCollection.Find(x => true).ToListAsync();
 
@@ -34,17 +34,8 @@ namespace BookMarketPlace.Services.CatalogApi.Services
                 {
                     book.Category = await _categoryCollection.Find(x => x.Id == book.CategoryId).FirstAsync();
 
-                    book.Authors = await _authorCollection.Find(x => book.AuthorsIds.Equals(x)).ToListAsync();
-
-                    //foreach (var author in book.AuthorsIds)
-                    //{
-                    //    authorList.Add(_authorCollection.Find(x => x.Id == author).First());
-                    //}
-                    //if (authorList.Count>0)
-                    //{
-                    //    book.Authors = authorList;
-                    //}
                 }
+
             }
             else
             {
@@ -53,7 +44,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             return Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
         }
-        public async Task<Response<BookDto>> GetByIdAsync(string Id)
+        public async Task<ICustomResponse<BookDto>> GetByIdAsync(string Id)
         {
             var book = await _bookCollection.Find(x => x.Id == Id).FirstOrDefaultAsync();
 
@@ -68,7 +59,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             return Response<BookDto>.Success(_mapper.Map<BookDto>(book), 200);
         }
-        public async Task<Response<List<BookDto>>> GetAllByUserAsync(string userId)
+        public async Task<ICustomResponse<List<BookDto>>> GetAllByUserAsync(string userId)
         {
             var books = await _bookCollection.Find(x => x.CreatedUser == userId).ToListAsync();
 
@@ -94,7 +85,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             return Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
         }
-        public async Task<Response<BookDto>> CreateAsync(BookCreateDto book)
+        public async Task<ICustomResponse<BookDto>> CreateAsync(BookCreateDto book)
         {
             var newBook = _mapper.Map<Book>(book);
 
@@ -105,7 +96,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
             return Response<BookDto>.Success(_mapper.Map<BookDto>(newBook), 200);
         }
 
-        public async Task<ResponseNoContent> UpdateAsync(BookUpdateDto book)
+        public async Task<ICustomResponse<string>> UpdateAsync(BookUpdateDto book)
         {
             var updateBook = _mapper.Map<Book>(book);
             
@@ -113,19 +104,19 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             if (result ==null)
             {
-                return ResponseNoContent.Error(new List<string> { "Book not found" }, 404);
+                return ResponseNoContent<string>.Error(new List<string> { "Book not found" }, 404);
             }
-            return ResponseNoContent.Success(204);
+            return ResponseNoContent<string>.Success(204);
         }
-        public async Task<ResponseNoContent> DeleteAsync(string id)
+        public async Task<ICustomResponse<string>> DeleteAsync(string id)
         {
             var result = await _bookCollection.DeleteOneAsync(x=>x.Id==id);    
 
             if (result.DeletedCount==0)
             {
-                return ResponseNoContent.Error(new List<string> { "Book not found" }, 404);
+                return ResponseNoContent<string>.Error(new List<string> { "Book not found" }, 404);
             }
-            return ResponseNoContent.Success(204);
+            return ResponseNoContent<string>.Success(204);
         }
     }
 }

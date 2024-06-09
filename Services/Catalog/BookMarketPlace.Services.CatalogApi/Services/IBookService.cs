@@ -5,11 +5,11 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 {
     public interface IBookService
     {
-        Task<Response<List<BookDto>>> GetAllAsync();
-        Task<Response<BookDto>> GetByIdAsync(string Id);
-        Task<Response<List<BookDto>>> GetAllByUserAsync(string userId);
-        Task<Response<BookDto>> CreateAsync(BookCreateDto book);
-        Task<ResponseNoContent> UpdateAsync(BookUpdateDto book);
-        Task<ResponseNoContent> DeleteAsync(string id);
+        Task<ICustomResponse<List<BookDto>>> GetAllAsync();
+        Task<ICustomResponse<BookDto>> GetByIdAsync(string Id);
+        Task<ICustomResponse<List<BookDto>>> GetAllByUserAsync(string userId);
+        Task<ICustomResponse<BookDto>> CreateAsync(BookCreateDto book);
+        Task<ICustomResponse<string>> UpdateAsync(BookUpdateDto book);
+        Task<ICustomResponse<string>> DeleteAsync(string id);
     }
 }

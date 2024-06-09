@@ -14,7 +14,6 @@ namespace BookMarketPlace.Services.CatalogApi.Models
         public string BookCoverPicture { get; set; }
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string CategoryId { get; set; }
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public List<string> AuthorsIds { get; set; }
         public DateTime CreatedTime { get; set; }
         public string CreatedUser { get; set; } 
