@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BookMarketPlace.IdentityServer.Services;
 
 namespace BookMarketPlace.IdentityServer
 {
@@ -55,6 +56,7 @@ namespace BookMarketPlace.IdentityServer
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
+            builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
@@ -83,6 +85,7 @@ namespace BookMarketPlace.IdentityServer
 
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

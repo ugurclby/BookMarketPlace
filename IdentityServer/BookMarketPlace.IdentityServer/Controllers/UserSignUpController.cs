@@ -1,18 +1,17 @@
-﻿using BookMarketPlace.IdentityServer.Dtos;
+﻿using BookMarketPlace.Core.CustomResponse;
+using BookMarketPlace.IdentityServer.Dtos;
 using BookMarketPlace.IdentityServer.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using BookMarketPlace.Core.CustomResponse;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
 namespace BookMarketPlace.IdentityServer.Controllers
 {
     [Authorize(LocalApi.PolicyName)]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/{action}")]
     [ApiController]
     public class UserSignUpController : ControllerBase
     {
@@ -36,6 +35,17 @@ namespace BookMarketPlace.IdentityServer.Controllers
 
              return NoContent();
         }
-
+        [HttpGet]
+        public async Task<IActionResult> GetUser()
+        {
+             var userIdClaim = User.Claims.FirstOrDefault(x=>x.Type==JwtRegisteredClaimNames.Sub );
+            if (userIdClaim == null) return BadRequest();
+            var user = await _userManager.FindByIdAsync(userIdClaim.Value);
+            if (user == null) return BadRequest();
+            return Ok(new {Id=user.Id,
+                UserName=user.UserName,
+                Email=user.Email
+            });
+        }
     }
 }

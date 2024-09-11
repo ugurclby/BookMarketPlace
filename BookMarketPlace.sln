@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.IdentitySer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.Core", "Core\BookMarketPlace.Core\BookMarketPlace.Core.csproj", "{A8F637E5-ABE5-4DC3-9217-32D4752F77B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo", "Photo", "{1D5C8C44-D80C-48E6-9CF4-3969FB40540E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.PhotoApi", "BookMarketPlace.Services.PhotoApi\BookMarketPlace.Services.PhotoApi.csproj", "{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{A8F637E5-ABE5-4DC3-9217-32D4752F77B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F637E5-ABE5-4DC3-9217-32D4752F77B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F637E5-ABE5-4DC3-9217-32D4752F77B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,8 @@ Global
 		{387BE7FF-760E-462F-A1F9-6D46855B087C} = {ABA70668-F61A-411B-93D1-4025E4375830}
 		{2E5450A2-F5BF-40F8-B1CF-CF9C3D949EB3} = {7652883A-8F54-4871-BAA6-4B599F479389}
 		{A8F637E5-ABE5-4DC3-9217-32D4752F77B3} = {B6F27338-0DAA-4490-B34C-B5969F4EE162}
+		{1D5C8C44-D80C-48E6-9CF4-3969FB40540E} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
+		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3} = {1D5C8C44-D80C-48E6-9CF4-3969FB40540E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053A6F4F-3A6C-4918-ACB8-E8BE6ABB48C1}
