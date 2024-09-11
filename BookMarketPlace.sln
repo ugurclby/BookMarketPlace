@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo", "Photo", "{1D5C8C44
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.PhotoApi", "BookMarketPlace.Services.PhotoApi\BookMarketPlace.Services.PhotoApi.csproj", "{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{1913D06E-5BEF-4355-8D4E-4EDB9130DCFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.BasketApi", "BookMarketPlace.Services.BasketApi\BookMarketPlace.Services.BasketApi.csproj", "{356F4093-C504-4F67-B68E-C2EBF4469897}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{356F4093-C504-4F67-B68E-C2EBF4469897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356F4093-C504-4F67-B68E-C2EBF4469897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356F4093-C504-4F67-B68E-C2EBF4469897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356F4093-C504-4F67-B68E-C2EBF4469897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +62,8 @@ Global
 		{A8F637E5-ABE5-4DC3-9217-32D4752F77B3} = {B6F27338-0DAA-4490-B34C-B5969F4EE162}
 		{1D5C8C44-D80C-48E6-9CF4-3969FB40540E} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
 		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3} = {1D5C8C44-D80C-48E6-9CF4-3969FB40540E}
+		{1913D06E-5BEF-4355-8D4E-4EDB9130DCFD} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
+		{356F4093-C504-4F67-B68E-C2EBF4469897} = {1913D06E-5BEF-4355-8D4E-4EDB9130DCFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053A6F4F-3A6C-4918-ACB8-E8BE6ABB48C1}
