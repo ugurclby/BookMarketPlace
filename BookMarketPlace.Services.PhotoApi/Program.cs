@@ -15,11 +15,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
     opt.Authority = builder.Configuration.GetSection("IdentityServerUrl").Value;
-    opt.Audience = "photo_stock_catalog";
+    opt.Audience = "resource_photo_stock";
     opt.RequireHttpsMetadata = false;
 });
-var app = builder.Build();
-var userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+var app = builder.Build(); 
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.

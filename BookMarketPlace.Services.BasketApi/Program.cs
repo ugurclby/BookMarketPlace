@@ -1,12 +1,30 @@
+using BookMarketPlace.Core.Services;
 using BookMarketPlace.Services.BasketApi.ConfigurationSettings;
 using BookMarketPlace.Services.BasketApi.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var requiredAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
-builder.Services.AddControllers();
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration.GetSection("IdentityServerUrl").Value;
+    opt.Audience = "resource_basket";
+    opt.RequireHttpsMetadata = false;
+});
+
+// Add services to the container.
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddControllers(configure =>
+{
+    configure.Filters.Add(new AuthorizeFilter(requiredAuthorizePolicy));
+});
 builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("RedisSettings"));
 
 
@@ -22,6 +40,10 @@ builder.Services.AddSingleton<RedisService>(opt =>
 
 });
 
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddScoped<IBasketService, BasketService>();
+ 
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +58,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
