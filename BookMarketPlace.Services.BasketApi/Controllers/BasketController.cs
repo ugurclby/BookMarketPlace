@@ -21,8 +21,7 @@ namespace BookMarketPlace.Services.BasketApi.Controllers
             _sharedIdentityService = sharedIdentityService;
         }
         [HttpGet]
-        public async Task<IActionResult> Get() {
-
+        public async Task<IActionResult> Get() { 
             var response=await _basketService.GetBasket(_sharedIdentityService.getUserId);
             return CreateActionResult(response);
         }
