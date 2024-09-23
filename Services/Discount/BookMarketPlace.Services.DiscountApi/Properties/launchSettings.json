@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:20201",
+      "applicationUrl": "http://localhost:2335",
       "sslPort": 0
     }
   },
   "profiles": {
-    "BookMarketPlace.Services.CatalogApi": {
+    "BookMarketPlace.Services.DiscountApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5131",
+      "applicationUrl": "http://localhost:5146",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

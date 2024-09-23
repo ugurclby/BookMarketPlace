@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookMarketPlace.Services.CatalogApi.Controllers
+namespace BookMarketPlace.Services.DiscountApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

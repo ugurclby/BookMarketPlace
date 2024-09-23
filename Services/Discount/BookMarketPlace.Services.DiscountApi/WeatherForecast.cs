@@ -1,4 +1,4 @@
-namespace BookMarketPlace.Services.CatalogApi
+namespace BookMarketPlace.Services.DiscountApi
 {
     public class WeatherForecast
     {

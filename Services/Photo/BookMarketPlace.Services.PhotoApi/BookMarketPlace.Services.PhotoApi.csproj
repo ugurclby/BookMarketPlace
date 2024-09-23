@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\BookMarketPlace.Core\BookMarketPlace.Core.csproj" />
+    <ProjectReference Include="..\..\..\Core\BookMarketPlace.Core\BookMarketPlace.Core.csproj" />
   </ItemGroup>
 
 </Project>
