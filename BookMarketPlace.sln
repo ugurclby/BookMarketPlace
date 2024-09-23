@@ -19,11 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.Core", "Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo", "Photo", "{1D5C8C44-D80C-48E6-9CF4-3969FB40540E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.PhotoApi", "BookMarketPlace.Services.PhotoApi\BookMarketPlace.Services.PhotoApi.csproj", "{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.Services.PhotoApi", "BookMarketPlace.Services.PhotoApi\BookMarketPlace.Services.PhotoApi.csproj", "{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{1913D06E-5BEF-4355-8D4E-4EDB9130DCFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.BasketApi", "BookMarketPlace.Services.BasketApi\BookMarketPlace.Services.BasketApi.csproj", "{356F4093-C504-4F67-B68E-C2EBF4469897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMarketPlace.Services.BasketApi", "BookMarketPlace.Services.BasketApi\BookMarketPlace.Services.BasketApi.csproj", "{356F4093-C504-4F67-B68E-C2EBF4469897}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{3F2EBF1C-A7D2-46BB-B5E1-50DAEC4F4871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,7 @@ Global
 		{B58A3C19-85D9-4A16-9D17-2EE5AE8032A3} = {1D5C8C44-D80C-48E6-9CF4-3969FB40540E}
 		{1913D06E-5BEF-4355-8D4E-4EDB9130DCFD} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
 		{356F4093-C504-4F67-B68E-C2EBF4469897} = {1913D06E-5BEF-4355-8D4E-4EDB9130DCFD}
+		{3F2EBF1C-A7D2-46BB-B5E1-50DAEC4F4871} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053A6F4F-3A6C-4918-ACB8-E8BE6ABB48C1}
