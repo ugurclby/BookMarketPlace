@@ -16,6 +16,7 @@ namespace BookMarketPlace.IdentityServer
             new ApiResource("resource_catalog"){Scopes={"catalog_fullperms"}},
             new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullperms"}},
             new ApiResource("resource_basket"){Scopes={"basket_fullperms"}},
+            new ApiResource("resource_discount"){Scopes={"discount_fullperms"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -34,6 +35,7 @@ namespace BookMarketPlace.IdentityServer
                 new ApiScope("catalog_fullperms","Catalog API için full erişim"),
                 new ApiScope("photo_stock_fullperms","Photo API için full erişim"),
                 new ApiScope("basket_fullperms","Basket API için full erişim"),
+                new ApiScope("discount_fullperms","Discout Api için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -55,7 +57,7 @@ namespace BookMarketPlace.IdentityServer
                      AllowOfflineAccess=true,
                      ClientSecrets={new Secret("secret".Sha256())},
                      AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
-                     AllowedScopes={"basket_fullperms", 
+                     AllowedScopes={"basket_fullperms", "discount_fullperms",
                          IdentityServerConstants.StandardScopes.Email,
                      IdentityServerConstants.StandardScopes.OpenId,
                      IdentityServerConstants.StandardScopes.Profile,
