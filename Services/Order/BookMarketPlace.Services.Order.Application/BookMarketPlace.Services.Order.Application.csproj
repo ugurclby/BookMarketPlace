@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\BookMarketPlace.Core\BookMarketPlace.Core.csproj" />
+    <ProjectReference Include="..\BookMarketPlace.Services.Order.Domain\BookMarketPlace.Services.Order.Domain.csproj" />
+    <ProjectReference Include="..\BookMarketPlace.Services.Order.Infrastructure\BookMarketPlace.Services.Order.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
