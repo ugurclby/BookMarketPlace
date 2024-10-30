@@ -1,14 +1,34 @@
+using BookMarketPlace.Core.Services;
+using BookMarketPlace.Services.Order.Application.Handlers;
 using BookMarketPlace.Services.Order.Infrastructure;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
+var requiredAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
-// Add services to the container.
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration.GetSection("IdentityServerUrl").Value;
+    opt.Audience = "resource_order";
+    opt.RequireHttpsMetadata = false;
+});
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
+builder.Services.AddMediatR(typeof(CreateOrderCommandHandler).Assembly);
+ 
 
 builder.Services.AddDbContext<OrderDbContext>(x =>
 {
@@ -17,7 +37,10 @@ builder.Services.AddDbContext<OrderDbContext>(x =>
         opt.MigrationsAssembly("BookMarketPlace.Services.Order.Infrastructure");
     });
 });
-
+builder.Services.AddControllers(configure =>
+{
+    configure.Filters.Add(new AuthorizeFilter(requiredAuthorizePolicy));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
