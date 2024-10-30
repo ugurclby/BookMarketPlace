@@ -19,6 +19,7 @@ namespace BookMarketPlace.IdentityServer
             new ApiResource("resource_order"){Scopes={"order_fullperms"}},
             new ApiResource("resource_discount"){Scopes={"discount_fullperms"}},
             new ApiResource("resource_fakePayment"){Scopes={"fakePayment_fullperms"}},
+            new ApiResource("resource_gateway"){Scopes={"gateway_fullperms"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -40,6 +41,7 @@ namespace BookMarketPlace.IdentityServer
                 new ApiScope("discount_fullperms","Discout Api için full erişim"),
                 new ApiScope("order_fullperms","Order Api için full erişim"),
                 new ApiScope("fakePayment_fullperms","FakePayment Api için full erişim"),
+                new ApiScope("gateway_fullperms","Gateway Api için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -52,7 +54,7 @@ namespace BookMarketPlace.IdentityServer
                      ClientId="WebMvcClient",
                      ClientSecrets={new Secret("secret".Sha256())},
                      AllowedGrantTypes=GrantTypes.ClientCredentials,
-                     AllowedScopes={ "catalog_fullperms", "photo_stock_fullperms", IdentityServerConstants.LocalApi.ScopeName }
+                     AllowedScopes={ "catalog_fullperms", "photo_stock_fullperms", "gateway_fullperms", IdentityServerConstants.LocalApi.ScopeName }
                  },
                  new Client()
                  {
@@ -61,7 +63,7 @@ namespace BookMarketPlace.IdentityServer
                      AllowOfflineAccess=true,
                      ClientSecrets={new Secret("secret".Sha256())},
                      AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
-                     AllowedScopes={"basket_fullperms", "discount_fullperms","order_fullperms","fakePayment_fullperms",
+                     AllowedScopes={"basket_fullperms", "discount_fullperms","order_fullperms","fakePayment_fullperms","gateway_fullperms",
                          IdentityServerConstants.StandardScopes.Email,
                      IdentityServerConstants.StandardScopes.OpenId,
                      IdentityServerConstants.StandardScopes.Profile,
