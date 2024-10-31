@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.Services.FakePaymentApi", "Services\FakePayment\BookMarketPlace.Services.FakePaymentApi\BookMarketPlace.Services.FakePaymentApi.csproj", "{E335B323-312D-4CF7-9CD4-2A4F804917BA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{704E3D2A-B50F-48EA-89E9-1EE068CD21D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMarketPlace.WebUI", "WebUI\BookMarketPlace.WebUI\BookMarketPlace.WebUI.csproj", "{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +111,10 @@ Global
 		{E335B323-312D-4CF7-9CD4-2A4F804917BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E335B323-312D-4CF7-9CD4-2A4F804917BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E335B323-312D-4CF7-9CD4-2A4F804917BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +139,7 @@ Global
 		{5C946D5E-F53D-428D-BFAB-4D27020868F9} = {B7800395-7CEC-48C1-97EE-209C4FC51D77}
 		{AF692433-902F-405F-BADE-269F8303E9EE} = {D899F409-6B56-4AC8-9ABC-00AC416165ED}
 		{E335B323-312D-4CF7-9CD4-2A4F804917BA} = {5C946D5E-F53D-428D-BFAB-4D27020868F9}
+		{F9EB2C97-5C1A-40AC-97E9-9BE4A2D43364} = {704E3D2A-B50F-48EA-89E9-1EE068CD21D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053A6F4F-3A6C-4918-ACB8-E8BE6ABB48C1}
