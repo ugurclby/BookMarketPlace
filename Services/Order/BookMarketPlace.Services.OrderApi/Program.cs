@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt; 
+using MassTransit;
+using BookMarketPlace.Services.Order.Application.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var requiredAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
@@ -17,7 +20,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     opt.Authority = builder.Configuration.GetSection("IdentityServerUrl").Value;
     opt.Audience = "resource_order";
     opt.RequireHttpsMetadata = false;
-});
+});  
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +32,35 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
 builder.Services.AddMediatR(typeof(CreateOrderCommandHandler).Assembly);
- 
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<CreateOrderMessageCommandConsumer>();
+    x.AddConsumer<BookNameChangedEventConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMqUrl:Host"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("create-order-service", e =>
+        {
+            e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+
+        });
+        cfg.ReceiveEndpoint("book-name-changed-event-order-service", e =>
+        {
+            e.ConfigureConsumer<BookNameChangedEventConsumer>(context);
+
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
+
 
 builder.Services.AddDbContext<OrderDbContext>(x =>
 {
@@ -41,6 +73,8 @@ builder.Services.AddControllers(configure =>
 {
     configure.Filters.Add(new AuthorizeFilter(requiredAuthorizePolicy));
 });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

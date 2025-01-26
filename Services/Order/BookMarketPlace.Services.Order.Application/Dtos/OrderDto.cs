@@ -6,6 +6,6 @@
         public DateTime CreatedDate { get; set; }
         public AdressDto Adress { get; set; }
         public string BuyerId { get; set; }
-        private List<OrderItemDto> OrderItem { get; set; } 
+        public List<OrderItemDto> OrderItem { get; set; } 
     }
 }

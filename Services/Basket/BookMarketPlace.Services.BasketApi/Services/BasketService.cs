@@ -20,14 +20,32 @@ namespace BookMarketPlace.Services.BasketApi.Services
 
         public async Task<Response<BasketDto>> GetBasket(string userId)
         {
-            var existsBasket = await _redisService.GetDatabase().StringGetAsync(userId);
+            var existsBasket = await _redisService.GetDatabase().StringGetAsync(userId); 
+
             if (String.IsNullOrEmpty(existsBasket))
             {
                 return Response<BasketDto>.Error(new List<string> { "Sepet Bulunamadı" }, 404);
             }
             return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existsBasket), 200);
         }
+        public async Task<Response<List<BasketDto>>> GetAllBasket()
+        {
+            var basketDbKeys = _redisService.GetAllKeys();
+            List<BasketDto> basketListDto = new List<BasketDto>();
+            foreach (var item in basketDbKeys)
+            {
+                BasketDto basketDto = new BasketDto();
+                var existsBasket = await _redisService.GetDatabase().StringGetAsync(item);
 
+                if (!String.IsNullOrEmpty(existsBasket))
+                {
+                    basketDto = JsonSerializer.Deserialize<BasketDto>(existsBasket);
+                    basketListDto.Add(basketDto);
+                }
+            }
+
+            return Response<List<BasketDto>>.Success(basketListDto, 200);
+        }
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
         {
             var status = await _redisService.GetDatabase().StringSetAsync(basketDto.UserId,JsonSerializer.Serialize(basketDto));

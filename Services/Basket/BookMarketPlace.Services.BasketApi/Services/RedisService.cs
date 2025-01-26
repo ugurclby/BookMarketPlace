@@ -13,6 +13,12 @@ namespace BookMarketPlace.Services.BasketApi.Services
             _port = port;
         } 
         public void Connect() => _ConnectionMultiplexer = ConnectionMultiplexer.Connect($"{_host}:{_port}");
-        public IDatabase GetDatabase(int db = 1) => _ConnectionMultiplexer.GetDatabase(db); 
+        public IDatabase GetDatabase(int db = 1) => _ConnectionMultiplexer.GetDatabase(db);  
+        public IEnumerable<RedisKey> GetAllKeys()
+        {
+            var server = _ConnectionMultiplexer.GetServer(_host, _port);
+            return server.Keys(1,"*",100);
+
+        }
     }
 }

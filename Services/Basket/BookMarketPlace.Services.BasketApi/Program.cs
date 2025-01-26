@@ -1,6 +1,8 @@
 using BookMarketPlace.Core.Services;
 using BookMarketPlace.Services.BasketApi.ConfigurationSettings;
+using BookMarketPlace.Services.BasketApi.Consumers;
 using BookMarketPlace.Services.BasketApi.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -46,8 +48,27 @@ builder.Services.AddSingleton<RedisService>(opt =>
 
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<IBasketService, BasketService>();
- 
 
+builder.Services.AddMassTransit(x =>
+{ 
+    x.AddConsumer<BookNameChangedEventConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMqUrl:Host"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+         
+        cfg.ReceiveEndpoint("book-name-changed-event-basket-service", e =>
+        {
+            e.ConfigureConsumer<BookNameChangedEventConsumer>(context);
+
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

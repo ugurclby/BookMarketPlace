@@ -8,5 +8,6 @@ namespace BookMarketPlace.Services.BasketApi.Services
         Task<Response<BasketDto>> GetBasket(string userId);
         Task<Response<bool>> SaveOrUpdate(BasketDto basketDto); 
         Task<Response<bool>> DeleteBasket(string userId);
+        Task<Response<List<BasketDto>>> GetAllBasket();
     }
 }

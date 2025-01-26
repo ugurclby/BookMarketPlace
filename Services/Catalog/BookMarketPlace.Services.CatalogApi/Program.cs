@@ -1,5 +1,6 @@
 using BookMarketPlace.Services.CatalogApi.ConfigurationDbSettings;
 using BookMarketPlace.Services.CatalogApi.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
@@ -30,7 +31,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     opt.Authority = builder.Configuration.GetSection("IdentityServerUrl").Value;
     opt.Audience = "resource_catalog";
     opt.RequireHttpsMetadata = false; 
-});  
+});
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMqUrl:Host"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

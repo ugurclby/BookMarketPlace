@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BookMarketPlace.Core.CustomResponse;
+using BookMarketPlace.Core.Messages;
 using BookMarketPlace.Services.CatalogApi.ConfigurationDbSettings;
 using BookMarketPlace.Services.CatalogApi.Dtos;
 using BookMarketPlace.Services.CatalogApi.Models;
+using MassTransit;
 using MongoDB.Driver;
 
 namespace BookMarketPlace.Services.CatalogApi.Services
@@ -14,7 +16,9 @@ namespace BookMarketPlace.Services.CatalogApi.Services
         private readonly IMongoCollection<Book> _bookCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMongoCollection<Author> _authorCollection;
-        public BookService(IMapper mapper, IDbSettings dbSettings)
+        private readonly IPublishEndpoint _publishEndpoint;
+
+        public BookService(IMapper mapper, IDbSettings dbSettings, IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
             var client = new MongoClient(dbSettings.ConnectionString);
@@ -22,6 +26,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
             _bookCollection = database.GetCollection<Book>(dbSettings.BookCollectionName);
             _categoryCollection = database.GetCollection<Category>(dbSettings.CategoryCollectionName);
             _authorCollection = database.GetCollection<Author>(dbSettings.AuthorCollectionName);
+            _publishEndpoint = publishEndpoint;
         }
         public async Task<ICustomResponse<List<BookDto>>> GetAllAsync()
         {
@@ -42,7 +47,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
                 books = new List<Book>();
             }
 
-            return Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
+            return Core.CustomResponse.Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
         }
         public async Task<ICustomResponse<BookDto>> GetByIdAsync(string Id)
         {
@@ -50,14 +55,14 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             if (book == null)
             {
-                return Response<BookDto>.Error(new List<string> { "Book not found" }, 404);
+                return Core.CustomResponse.Response<BookDto>.Error(new List<string> { "Book not found" }, 404);
             }
 
             book.Category = await _categoryCollection.Find(x => x.Id == book.CategoryId).FirstAsync();
             book.Authors = await _authorCollection.Find(x => book.AuthorsIds.Equals(x)).ToListAsync();
 
 
-            return Response<BookDto>.Success(_mapper.Map<BookDto>(book), 200);
+            return Core.CustomResponse.Response<BookDto>.Success(_mapper.Map<BookDto>(book), 200);
         }
         public async Task<ICustomResponse<List<BookDto>>> GetAllByUserAsync(string userId)
         {
@@ -65,7 +70,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             if (books == null)
             {
-                return Response<List<BookDto>>.Error(new List<string> { "Book not found" }, 404);
+                return Core.CustomResponse.Response<List<BookDto>>.Error(new List<string> { "Book not found" }, 404);
             } 
 
             if (books.Any())
@@ -83,7 +88,7 @@ namespace BookMarketPlace.Services.CatalogApi.Services
                 books = new List<Book>();
             }
 
-            return Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
+            return Core.CustomResponse.Response<List<BookDto>>.Success(_mapper.Map<List<BookDto>>(books), 200);
         }
         public async Task<ICustomResponse<BookDto>> CreateAsync(BookCreateDto book)
         {
@@ -93,19 +98,22 @@ namespace BookMarketPlace.Services.CatalogApi.Services
 
             await _bookCollection.InsertOneAsync(newBook);
             
-            return Response<BookDto>.Success(_mapper.Map<BookDto>(newBook), 200);
+            return Core.CustomResponse.Response<BookDto>.Success(_mapper.Map<BookDto>(newBook), 200);
         }
 
         public async Task<ICustomResponse<string>> UpdateAsync(BookUpdateDto book)
         {
             var updateBook = _mapper.Map<Book>(book);
             
-            var result = _bookCollection.FindOneAndReplaceAsync(x=>x.Id==book.Id, updateBook);
+            var result = await _bookCollection.FindOneAndReplaceAsync(x=>x.Id==book.Id, updateBook);
 
             if (result ==null)
             {
                 return ResponseNoContent<string>.Error(new List<string> { "Book not found" }, 404);
             }
+
+            await _publishEndpoint.Publish<BookNameChangedEvent>(new BookNameChangedEvent { BookId = book.Id, NewName = book.Name });
+
             return ResponseNoContent<string>.Success(204);
         }
         public async Task<ICustomResponse<string>> DeleteAsync(string id)
