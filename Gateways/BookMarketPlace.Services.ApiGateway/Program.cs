@@ -1,8 +1,11 @@
+using BookMarketPlace.Services.ApiGateway.DelegateHandlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args); 
+
+builder.Services.AddHttpClient<TokenExchangeDelegateHandler>();
 
 builder.Host.ConfigureAppConfiguration((hostBuilder, config) =>
 {
@@ -17,7 +20,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     opt.RequireHttpsMetadata = false;
 });
 
-builder.Services.AddOcelot();  
+builder.Services.AddOcelot().AddDelegatingHandler<TokenExchangeDelegateHandler>();  
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

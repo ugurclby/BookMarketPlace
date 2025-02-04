@@ -63,9 +63,9 @@
       "UpstreamPathTemplate": "/services/discount/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": [ "GatewayAuthenticationKey" ],
-        "AllowedScopes": [ "discount_fullperms" ]
+        "AuthenticationProviderKeys": [ "GatewayAuthenticationKey" ] 
       }
     },
     {
@@ -97,9 +97,9 @@
       "UpstreamPathTemplate": "/services/faketPayment/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": [ "GatewayAuthenticationKey" ],
-        "AllowedScopes": [ "fakePayment_fullperms" ]
+        "AuthenticationProviderKeys": [ "GatewayAuthenticationKey" ]
       }
     }
   ],
